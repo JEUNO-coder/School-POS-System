@@ -950,14 +950,23 @@ void Renderer::createOrderResultsFooter(bool isNew) {
 }
 
 void Renderer::createAdminMenuFooter(bool isNew) {
-    shared_ptr<GridNode> toolTipsContainer = make_shared<GridNode>();
+     shared_ptr<GridNode> toolTipsContainer = make_shared<GridNode>();
 
     toolTipsContainer->setColGap(2);
     toolTipsContainer->setRowGap(1);
 
+    shared_ptr<ButtonNode> enterBtn = make_shared<ButtonNode>(
+        "\u23CE", "enter", make_tuple(KEY_ENTER, KEY_ENTER_LINUX), true);
+    // Just a text
+    shared_ptr<ButtonNode> upDownBtn =
+        make_shared<ButtonNode>("↑/↓", "up/down", make_tuple(0, 0), true);
     shared_ptr<ButtonNode> quitBtn =
         make_shared<ButtonNode>("q", "quit", make_tuple(0, 0), true);
 
+    enterBtn->subscribe(onEnterBtnClickedMenuSelect);
+
+    toolTipsContainer->appendChild(enterBtn);
+    toolTipsContainer->appendChild(upDownBtn);
     toolTipsContainer->appendChild(quitBtn);
 
     shared_ptr<TextNode> lineSeparatorUp =
