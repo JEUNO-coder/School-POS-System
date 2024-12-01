@@ -551,7 +551,7 @@ void Renderer::createMenuItemAddonsView(bool isNew) {
         addonMetadataContainer->setIsFlexible(false);
 
         shared_ptr<TextNode> addonPrice =
-            make_shared<TextNode>("Price: ₱" + formatNumber(addon.getPrice()));
+            make_shared<TextNode>("Additional Price: ₱" + formatNumber(addon.getPrice()));
 
         addonMetadataContainer->appendChild(addonPrice);
 
@@ -860,10 +860,18 @@ void Renderer::createMenuItemAddonsFooter(bool isNew) {
     toolTipsContainer->setColGap(2);
     toolTipsContainer->setRowGap(1);
 
+    shared_ptr<ButtonNode> enterBtn = make_shared<ButtonNode>(
+        "\u23CE", "enter", make_tuple(KEY_ENTER, KEY_ENTER_LINUX), true);
     // Just a text
+    shared_ptr<ButtonNode> upDownBtn =
+        make_shared<ButtonNode>("↑/↓", "up/down", make_tuple(0, 0), true);
     shared_ptr<ButtonNode> quitBtn =
         make_shared<ButtonNode>("q", "quit", make_tuple(0, 0), true);
 
+    enterBtn->subscribe(onEnterBtnClickedMenuSelect);
+
+    toolTipsContainer->appendChild(enterBtn);
+    toolTipsContainer->appendChild(upDownBtn);
     toolTipsContainer->appendChild(quitBtn);
 
     shared_ptr<TextNode> lineSeparatorUp =
